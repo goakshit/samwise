@@ -8,7 +8,7 @@ Includes series of rust programs through my rust journey.
     - To mark a task as complete, we need to run `cargo run -- complete <TASK NAME>`
 
 -  ##### GrepLite
-    GrepLite is another cli app that searches for a pattern in a static text.
+    GrepLite is another cli app that searches for a pattern in a file or text passed through stdin.
     ###### Steps
     - Change directory to todo using `cd grep-lite`
-    - To search for a pattern, we need to run `cargo run -- <PATTERN>`
+    - To search for a pattern, we need to run `cargo run -- <PATTERN> <FILE>`

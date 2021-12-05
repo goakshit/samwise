@@ -1,3 +1,7 @@
+use std::fs::File;
+use std::io;
+use std::io::BufReader;
+use std::io::prelude::*;
 use regex::Regex;
 use clap::{App, Arg};
 
@@ -7,20 +11,36 @@ fn main() {
         .about("searches for the given pattern")
         .arg(Arg::with_name("pattern")
             .help("the pattern to search for")
+            .takes_value(true)
             .required(true)
-            .index(1)
+        ).
+        arg(Arg::with_name("input")
+            .help("the input to search from")
+            .takes_value(true)
+            .required(false)
         ).get_matches();
     
-        let pattern = args.value_of("pattern").unwrap();
-        let re = Regex::new(pattern).unwrap();
-
-    let quote = "It is the same with books. What do we seek through millions of pages?
-It is the same with books";
-
-    for line in quote.lines() {
-        match re.find(line) {
-            Some(_) => println!("{}", line),
-            None => (),
-        }
+    let pattern = args.value_of("pattern").unwrap();
+    let re = Regex::new(pattern).unwrap();
+    
+    let input = args.value_of("input").unwrap_or("stdin");
+    if input == "stdin" {
+      let stdin = io::stdin();
+      let reader = stdin.lock();
+      process_lines(reader, re);
+    } else {
+      let f = File::open(input).unwrap();
+      let reader = BufReader::new(f);
+      process_lines(reader, re);
     }
+}
+
+fn process_lines<T: BufRead + Sized>(reader: T, re: Regex) {
+  for line in reader.lines() {
+    let line_ = line.unwrap();
+      match re.find(&line_) {
+        Some(_) => println!("{}", line_),
+        None => (),
+      }
+  }
 }
