@@ -12,3 +12,12 @@ Includes series of rust programs through my rust journey.
     ###### Steps
     - Change directory to todo using `cd grep-lite`
     - To search for a pattern, we need to run `cargo run -- <PATTERN> <FILE>`
+
+-  ##### Diesel Demo
+    DieselDemo is sample cli app to test CRUD using ORM in postgres.
+    ###### Steps
+    - Change directory to todo using `cd diesel_demo`
+    - To search for posts, we need to run `cargo run -bin show_posts`
+    - To write a new post, we need to run `cargo run -bin write_post`
+    - To update a post, we need to run `cargo run -bin update_post <ID>`
+    - To delete a post, we need to run `cargo run -bin delete_post <PATTERN>`
